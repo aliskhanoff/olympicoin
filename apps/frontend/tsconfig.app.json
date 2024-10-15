@@ -8,7 +8,12 @@
     "baseUrl": "./src",
     "paths": {
       "@components/*": ["components/*"],
-      "@shared/*": ["./components/shared/*"],
+      "@shared/*": ["./components/shared"],
+      "@typo/*": ["./components/types"],
+      "@widgets": ["./components/widgets"],
+      "@feautures": ["./components/feautures"],
+      "@pages": ["./components/pages"],
+      "@app": ["./components/app"],
     },
     /* Bundler mode */
     "moduleResolution": "bundler",

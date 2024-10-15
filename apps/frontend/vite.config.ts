@@ -6,6 +6,9 @@ import { join
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  build: {
+    outDir: "../../dist/static"
+  },
   resolve: {
     alias: {
       "@shared": join(__dirname, "src/components/shared"),
@@ -13,6 +16,7 @@ export default defineConfig({
       "@features": join(__dirname, "src/components/features"),
       "@pages": join(__dirname, "src/components/pages"),
       "@app": join(__dirname, "src/components/app"),
+      "@typo": join(__dirname, "src/components/types"),
     }
   }
 })
