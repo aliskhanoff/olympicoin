@@ -11,12 +11,12 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@shared": join(__dirname, "src/components/shared"),
-      "@widgets": join(__dirname, "src/components/widgets"),
-      "@features": join(__dirname, "src/components/features"),
-      "@pages": join(__dirname, "src/components/pages"),
-      "@app": join(__dirname, "src/components/app"),
-      "@typo": join(__dirname, "src/components/types"),
+      "@shared": join(__dirname, "src/components/shared/"),
+      "@widgets": join(__dirname, "src/components/widgets/"),
+      "@features": join(__dirname, "src/components/features/"),
+      "@pages": join(__dirname, "src/components/pages/"),
+      "@app": join(__dirname, "src/components/app/"),
+      "@typo": join(__dirname, "src/components/types/"),
     }
   }
 })
