@@ -14,7 +14,8 @@ async function bootstrap() {
     },
   );
   const port = Number(process.env.SERVER_PORT) || 3000;
-
+  app.enableShutdownHooks()
+  
   await app.listen(port);
 }
 
