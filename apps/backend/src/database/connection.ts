@@ -1,16 +1,6 @@
 import { Pool } from 'pg'
 import { Kysely, PostgresDialect } from 'kysely'
 
-interface IConfiguration {
-  user: string;
-  password: string;
-  port: number;
-  host: string;
-  database: string;
-  ssl: boolean;
-  max: number;  // Maximum number of connections in the pool. Default is 32.
-  connectionTimeoutMillis: number
-}
 
 export function getDatabaseConnection<T>({
   host,
@@ -38,8 +28,19 @@ export function getDatabaseConnection<T>({
       pool
   })
   
-
   return new Kysely<T>({
         dialect,
     })
+}
+
+
+interface IConfiguration {
+  user: string;
+  password: string;
+  port: number;
+  host: string;
+  database: string;
+  ssl: boolean;
+  max: number;  // Maximum number of connections in the pool. Default is 32.
+  connectionTimeoutMillis: number
 }

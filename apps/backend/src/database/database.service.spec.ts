@@ -22,13 +22,11 @@ interface Database {
 
 type insertUser = Insertable<UserTable>
 type selectUser = Selectable<UserTable>
-type updateUser = Updateable<UserTable>
 
 describe('DatabaseService', () => {
   let service: DatabaseService
 
-  beforeAll(async () => {
-    
+  beforeAll(async () => { 
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({
@@ -42,8 +40,9 @@ describe('DatabaseService', () => {
     const db = service.getDatabase<Database>()
     await db.schema.dropTable("fake_users").ifExists().execute()
     await db.schema.createTable("fake_users")
-    .addColumn("name", "varchar(128)", col => col.notNull())
-    .addColumn("id", "serial", col => col.primaryKey()).execute()
+                    .addColumn("name", "varchar(128)", col => col.notNull())
+                    .addColumn("id", "serial", col => col.primaryKey())
+                    .execute()
   })
 
   it('should be defined', () => {
