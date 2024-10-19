@@ -5,8 +5,6 @@ import { join } from 'node:path';
 import { AccountsModule } from '@olympicoin/accounts/accounts.module';
 import { DatabaseModule } from '@olympicoin/database/database.module';
 
-console.error(`PATH ${join(__dirname, '../../apps/backend', '.env.local')}`);
-
 @Module({
   imports: [
     ConfigModule.forRoot({
