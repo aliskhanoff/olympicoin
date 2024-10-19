@@ -10,12 +10,12 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter(),
     {
-      logger: ['log', 'error', 'warn', 'debug', 'verbose']
+      logger: ['log', 'error', 'warn', 'debug', 'verbose'],
     },
   );
   const port = Number(process.env.SERVER_PORT) || 3000;
-  app.enableShutdownHooks()
-  
+  app.enableShutdownHooks();
+
   await app.listen(port);
 }
 

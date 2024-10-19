@@ -7,7 +7,7 @@ import { join
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: "../../dist/static"
+    outDir: "../../dist/frontend"
   },
   resolve: {
     alias: {
