@@ -1,6 +1,5 @@
-import { Pool } from 'pg'
-import { Kysely, PostgresDialect } from 'kysely'
-
+import { Pool } from 'pg';
+import { Kysely, PostgresDialect } from 'kysely';
 
 export function getDatabaseConnection<T>({
   host,
@@ -10,9 +9,8 @@ export function getDatabaseConnection<T>({
   database,
   ssl,
   max = 32,
-  connectionTimeoutMillis = 5000
+  connectionTimeoutMillis = 5000,
 }: IConfiguration) {
-
   const pool = new Pool({
     host,
     user,
@@ -21,18 +19,17 @@ export function getDatabaseConnection<T>({
     database,
     ssl,
     max,
-    connectionTimeoutMillis
-  })
-  
-  const dialect = new PostgresDialect({
-      pool
-  })
-  
-  return new Kysely<T>({
-        dialect,
-    })
-}
+    connectionTimeoutMillis,
+  });
 
+  const dialect = new PostgresDialect({
+    pool,
+  });
+
+  return new Kysely<T>({
+    dialect,
+  });
+}
 
 interface IConfiguration {
   user: string;
@@ -41,6 +38,6 @@ interface IConfiguration {
   host: string;
   database: string;
   ssl: boolean;
-  max: number;  // Maximum number of connections in the pool. Default is 32.
-  connectionTimeoutMillis: number
+  max: number; // Maximum number of connections in the pool. Default is 32.
+  connectionTimeoutMillis: number;
 }
