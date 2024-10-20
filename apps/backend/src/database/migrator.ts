@@ -18,7 +18,7 @@ export function createDatabaseMigrator<T>(
   return new DatabaseMigrator<T>(configService, migrationFolder);
 }
 
-export class DatabaseMigrator<T> {
+class DatabaseMigrator<T> {
   private migrator: Migrator;
   private logger: Logger;
 
@@ -31,7 +31,7 @@ export class DatabaseMigrator<T> {
     this.logger = logger;
   }
 
-  async migrate() {
+  async migrate(): Promise<void> {
     const { error, results } = await this.migrator.migrateToLatest();
 
     if (error) {
@@ -42,7 +42,7 @@ export class DatabaseMigrator<T> {
     await handleResults(results, this.logger);
   }
 
-  async rollback() {
+  async rollback(): Promise<void> {
     const { error, results } = await this.migrator.migrateDown();
 
     if (error) {
