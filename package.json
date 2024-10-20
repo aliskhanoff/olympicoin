@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@jest/globals": "^29.7.0",
     "@nestjs/platform-fastify": "^10.4.4",
     "@nestjs/serve-static": "^4.0.2",
     "@swc/cli": "0.4.1-nightly.20240914",
