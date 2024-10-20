@@ -8,7 +8,7 @@ import { DatabaseModule } from '@olympicoin/database/database.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: [join(__dirname, '../../apps/backend', '.env.local')],
+      envFilePath: [join(__dirname, '../../../', 'apps/backend', '.env.local')],
       isGlobal: true,
     }),
 
