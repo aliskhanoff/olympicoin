@@ -14,11 +14,11 @@ import { Logger } from '@nestjs/common';
 export function createDatabaseMigrator<T>(
   configService: ConfigService,
   migrationFolder: string,
-) {
+):DatabaseMigrator<T> {
   return new DatabaseMigrator<T>(configService, migrationFolder);
 }
 
-class DatabaseMigrator<T> {
+export class DatabaseMigrator<T> {
   private migrator: Migrator;
   private logger: Logger;
 
