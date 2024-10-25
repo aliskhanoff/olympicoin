@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { getDatabaseConnection } from './connection';
 import { ConfigService } from '@nestjs/config';
 

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -19,10 +19,12 @@
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
     "types": ["jest", "node"],
+    "typeRoots": ["./node_modules/@types", "src/database/global.d.ts"],
     "paths": {
-      "@olympicoin/*": ["./src/*"],
+      "@oly/*": ["./src/*"],
       "@oly/db": ["./src/database"],
-      "@oly/acc": ["./src/database"]
+      "@oly/acc": ["./src/database"],
+      "@oly/gen": ["./src/generators"],
     }
   }
 }
