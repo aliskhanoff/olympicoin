@@ -24,7 +24,7 @@
       "@oly/*": ["./src/*"],
       "@oly/db": ["./src/database"],
       "@oly/acc": ["./src/database"],
-      "@oly/gen": ["./src/generators"],
+      "@oly/gen": ["./src/generators"]
     }
   }
 }
