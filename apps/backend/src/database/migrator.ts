@@ -85,13 +85,24 @@ function createConnector<T>(configService: ConfigService) {
 
 function handleResults(results: MigrationResult[], logger: Logger) {
   // biome-ignore lint/complexity/noForEach: <explanation>
-  results?.forEach((it) => {
+  results?.forEach((it: MigrationResult) => {
+    
     if (it.status === 'Success') {
       logger.verbose(
         `migration "${it.migrationName}" was executed successfully`,
       );
-    } else if (it.status === 'Error') {
+    } 
+    
+    else if (it.status === 'Error') {
       logger.error(`failed to execute migration "${it.migrationName}"`);
+    }
+
+    else if (it.status === 'NotExecuted') {
+      logger.error(`Migration has not been executed! "${it.migrationName}"`);
+    }
+
+    else {
+      logger.error(`unknown status for migration "${it.migrationName}": ${it.status}`);
     }
   });
 }
