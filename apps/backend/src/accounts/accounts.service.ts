@@ -5,10 +5,9 @@ import { forwardRef, Inject, Injectable, Logger,
 import { ConfigService } from '@nestjs/config';
 import { join } from 'node:path';
 import { sql, type InsertResult, type Kysely } from 'kysely';
-import type { CreateAccountResponse as CreateAccountModel, Database, FindUserResponse } from './types';
-import { type DatabaseMigrator, DatabaseService, createDatabaseMigrator } from '@oly/db';
-import { DBQueryHanlder } from '@oly/db';
-import { TicketGeneratorService } from '@oly/gen';
+import type { AccountModel, Database, FindUserResponse } from './types';
+import { type DatabaseMigrator, DatabaseService, createDatabaseMigrator, DBQueryHanlder } from '@oly/database';
+import { TicketGeneratorService } from '@oly/generators';
 
 @Injectable()
 export class AccountsService implements OnModuleInit, OnModuleDestroy {
@@ -31,7 +30,7 @@ export class AccountsService implements OnModuleInit, OnModuleDestroy {
     );
   }
 
-  public async createAccount(createAccountModel: CreateAccountModel): Promise<unknown> {
+  public async createAccount(createAccountModel: AccountModel): Promise<unknown> {
       const result = await this.database.insertInto("accounts").values({
         provider:     createAccountModel.provider,
         user_id:      createAccountModel.userId,
@@ -70,9 +69,10 @@ export class AccountsService implements OnModuleInit, OnModuleDestroy {
                   "acc.last_name as lastName", 
                   "acc.created_at as createdAt",
                   "acc.updated_at as updatedAt",
-                  "language_code as lang",
                   "acc.email as email",
-                  "ln.language_code as lang"
+                  "ln.language_code as lang",
+                  "acc.is_disabled as disabled",
+                  "acc.phone_number as phone",
                 ])
                 .where("acc.username", "=", userName)
                 .executeTakeFirst()
@@ -96,7 +96,7 @@ export class AccountsService implements OnModuleInit, OnModuleDestroy {
   }
 
   async onModuleDestroy() {
-    if (this.configService.get<string>('MIGRATE') === 'true') {
+    if (this.configService.get<string>('MIGRATE_REVERT') === 'true') {
       this.loggerService.verbose('Database migrations down...');
       await this.migrator.rollback();
       this.loggerService.verbose('Migration down finished');

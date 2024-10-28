@@ -1,9 +1,9 @@
 import { join } from 'node:path';
 import { Test, type TestingModule } from '@nestjs/testing';
 import { ConfigModule } from '@nestjs/config';
-import { DatabaseService } from '@olympicoin/database';
+import { DatabaseService } from '@oly/database';
 import { AccountsService } from './accounts.service';
-import { generateInviteTicket } from '../generators';
+import { generateInviteTicket } from '@oly/generators/invite-ticket';
 
 BigInt.prototype.toJSON = function () {
   return this.toString()
