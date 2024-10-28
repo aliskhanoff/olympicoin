@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test:frontend": "pnpm --prefix=apps/frontend run test",
-    "test:backend": "pnpm --prefix=apps/backend run test",
+    "test:backend": "pnpm --prefix=apps/backend run test --watch",
     "build:frontend": "pnpm --prefix=apps/frontend run build",
     "build:backend": "pnpm --prefix=apps/backend run build",
     "build": "run-p build:frontend build:backend",
@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "@jest/globals": "^29.7.0",
+    "@nestjs/jwt": "^10.2.0",
     "@nestjs/platform-fastify": "^10.4.4",
     "@nestjs/serve-static": "^4.0.2",
     "@swc/cli": "0.4.1-nightly.20240914",
