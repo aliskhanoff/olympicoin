@@ -71,8 +71,8 @@ export interface Database {
   languages: LanguagesTable
 }
 
-export interface CreateAccountResponse {
-  provider: 'telegram' | 'local';
+export interface AccountModel {
+  provider: 'telegram' | string;
   userId: string;
   userName: string;
   firstName: string;
@@ -83,7 +83,7 @@ export interface CreateAccountResponse {
 
 
 export interface FindUserResponse {
-  provider: 'telegram' | 'local';
+  provider: 'telegram' | string;
   id: number,
   userId: string;
   userName: string;
@@ -93,4 +93,5 @@ export interface FindUserResponse {
   updatedAt?: Date;
   lang: 'en' | string;
   email?: string;
+  password?: string
 }
