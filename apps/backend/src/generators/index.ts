@@ -1,3 +1,3 @@
 export * from './generator.module'
-export * from './ticket-generator.service'
-export * from './password-generator.service'
+export * from './services/ticket-generator.service'
+export * from './services/password-generator.service'

@@ -3,7 +3,7 @@ import { Test, type TestingModule } from '@nestjs/testing';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseService } from '@oly/database';
 import { AccountsService } from './accounts.service';
-import { generateInviteTicket } from '@oly/generators/invite-ticket';
+import { generateInviteTicket } from '@oly/generators/services/invite-ticket';
 
 BigInt.prototype.toJSON = function () {
   return this.toString()
