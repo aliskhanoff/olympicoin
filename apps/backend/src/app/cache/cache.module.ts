@@ -12,13 +12,14 @@ export interface CacheModuleOptions {
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class CacheModule {
   static forRoot(options: CacheModuleOptions = {}): DynamicModule {
-    const cacheInstance = new CacheManager(new InMemoryCache())
+    const cacheInstance = new CacheManager([new InMemoryCache()])
 
     return {
       module: CacheModule,
       providers: [
         {
-          provide: 'ICache',
+          provide: 'CACHE_MANAGER',
+          useClass: CacheManager,
           useValue: cacheInstance,
         },
         CacheService,

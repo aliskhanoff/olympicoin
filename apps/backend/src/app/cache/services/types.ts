@@ -9,7 +9,7 @@ export class CacheManager {
     private cache: ICache;
 
     constructor(protected caches: ICache[] = [new InMemoryCache()]) {
-        const actualCache = process.env.CURRENT_CACHE || "memory";
+        const actualCache = process.env.INITIAL_CACHE || "memory";
         this.cache = caches.find(c => c.name === actualCache)
     }
 

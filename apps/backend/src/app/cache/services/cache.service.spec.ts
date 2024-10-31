@@ -6,7 +6,7 @@ describe('Cache Manager', () => {
   let service: CacheService;
 
   beforeAll(async () => {
-    process.env.CURRENT_CACHE = "memory"
+    process.env.INITIAL_CACHE = "memory"
 
     const module: TestingModule = await Test.createTestingModule({
         providers: [{
