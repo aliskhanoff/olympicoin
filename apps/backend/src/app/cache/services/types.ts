@@ -7,19 +7,23 @@ interface CacheEntry<T> {
 
 type IntervalType = ReturnType<typeof setInterval>;
 
-const USE_CACHE = 'memory'
+const INITIAL_CACHE_TYPE_DEFAULT = 'memory'
 
 export class CacheManager implements ICache {
     
     private cache: ICache;
     name: string;
 
-    constructor(protected caches: ICache[], useCache = USE_CACHE, cleanInterval = 1500) {
-        const _caches = caches || [new InMemoryCache(cleanInterval)]
+    constructor(
+        protected caches: ICache[], 
+        initialCacheType = INITIAL_CACHE_TYPE_DEFAULT, 
+        cleanInterval = 1500) 
         
-        const actualCache = useCache || process.env.INITIAL_CACHE || USE_CACHE;
-        this.cache = _caches.find(c => c.name === actualCache)
-        this.name = this.cache.name
+        {
+            const _caches = caches || [new InMemoryCache(cleanInterval)]
+            const actualCache = initialCacheType || INITIAL_CACHE_TYPE_DEFAULT;
+            this.cache = _caches.find(c => c.name === actualCache)
+            this.name = this.cache.name
     }
     
 
@@ -53,7 +57,7 @@ export class CacheManager implements ICache {
 }
 
 const BASE_COLLECTION_NAME = "$BASE"
-const CACHE_TIMEOUT = 1500
+const CACHE_CLEANUP_TIMEOUT_MS = 1500
 
 
 export class InMemoryCache implements ICache {
@@ -61,7 +65,7 @@ export class InMemoryCache implements ICache {
     private cleanupIntervalId: IntervalType;
     public name = "memory";
 
-    constructor(cleanupInterval = CACHE_TIMEOUT) {
+    constructor(cleanupInterval = CACHE_CLEANUP_TIMEOUT_MS) {
         this.cleanupIntervalId = setInterval(() => {
             this.cleanup();
         }, cleanupInterval);
