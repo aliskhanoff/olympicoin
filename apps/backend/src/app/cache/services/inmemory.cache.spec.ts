@@ -87,4 +87,17 @@ describe('InMemoryCache with cleanup interval', () => {
             },
         ])
     })
+
+    test('should clear all elements from all collection', async () => {
+        await cache.set("key1", "value1", 1500, "values1")
+        await cache.set("key2", "value2", 1500, "values2")
+
+        await cache.clear()
+        
+        const result1 = await cache.getAll("values1")
+        const result2 = await cache.getAll("values2")
+
+        expect(result1).toBeUndefined()
+        expect(result2).toBeUndefined()
+    })
 });

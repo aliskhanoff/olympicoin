@@ -7,13 +7,17 @@ interface CacheEntry<T> {
 
 type IntervalType = ReturnType<typeof setInterval>;
 
+const USE_CACHE = 'memory'
+
 export class CacheManager {
     
     private cache: ICache;
 
-    constructor(protected caches: ICache[] = [new InMemoryCache()]) {
-        const actualCache = process.env.INITIAL_CACHE || "memory";
-        this.cache = caches.find(c => c.name === actualCache)
+    constructor(protected caches: ICache[], useCache = USE_CACHE, cleanInterval = 1500) {
+        const _caches = caches || [new InMemoryCache(cleanInterval)]
+        
+        const actualCache = useCache || process.env.INITIAL_CACHE || USE_CACHE;
+        this.cache = _caches.find(c => c.name === actualCache)
     }
 
     async set<T>(key: string, value: T, ttl?: number): Promise<void> {
@@ -136,11 +140,15 @@ export class InMemoryCache implements ICache {
     }
 
     public async clear(collectionName?: string): Promise<void> {
+
+        if(!collectionName) return this.cache.clear()
+
         for (const [key, entry] of this.cache.entries()) {
             if (entry.collectionName === (collectionName || BASE_COLLECTION_NAME)) {
                 this.cache.delete(key);
             }
         }
+        
     }
 
     public close(): void {
