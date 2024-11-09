@@ -9,16 +9,19 @@ type IntervalType = ReturnType<typeof setInterval>;
 
 const USE_CACHE = 'memory'
 
-export class CacheManager {
+export class CacheManager implements ICache {
     
     private cache: ICache;
+    name: string;
 
     constructor(protected caches: ICache[], useCache = USE_CACHE, cleanInterval = 1500) {
         const _caches = caches || [new InMemoryCache(cleanInterval)]
         
         const actualCache = useCache || process.env.INITIAL_CACHE || USE_CACHE;
         this.cache = _caches.find(c => c.name === actualCache)
+        this.name = this.cache.name
     }
+    
 
     async set<T>(key: string, value: T, ttl?: number): Promise<void> {
         return await this.cache.set(key, value, ttl);
@@ -43,8 +46,8 @@ export class CacheManager {
         return await this.cache.has(key)
     }
 
-    async clear(): Promise<void> {
-        return await this.cache.clear()
+    async clear(collectionName?: string): Promise<void> {
+        return await this.cache.clear(collectionName)
     }
     
 }
@@ -148,7 +151,7 @@ export class InMemoryCache implements ICache {
                 this.cache.delete(key);
             }
         }
-        
+
     }
 
     public close(): void {
