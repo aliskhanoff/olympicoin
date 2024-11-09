@@ -1,24 +1,23 @@
 import { Injectable, Inject } from '@nestjs/common';
-import type { CacheManager, ICache } from './types';
+import { CacheManager, type ICache, InMemoryCache } from './types';
+import { ConfigService } from '@nestjs/config';
+
+const DEFAULT_CLEANUP_CACHE_INTERVAL_MS = 1500;
 
 @Injectable()
 export class CacheService {
 
-  constructor(@Inject("CACHE_MANAGER") private cacheManager: CacheManager) {}
+  private cacheManager: CacheManager;
 
-  async set<T>(key: string, value: T, ttl?:number): Promise<void> {
-    await this.cacheManager.set(key, value, ttl);
+  constructor(@Inject(ConfigService) configService: ConfigService) {
+    const useCache = configService.get("INITIAL_CACHE_TYPE")
+    const cacheCleanupTimeoutMS = configService.get("CLEANUP_CACHE_INTERVAL_MS") || DEFAULT_CLEANUP_CACHE_INTERVAL_MS
+    this.cacheManager = new CacheManager([new InMemoryCache()], useCache, cacheCleanupTimeoutMS)
   }
 
-  async get<T>(key: string): Promise<T | string | undefined> {
-    return await this.cacheManager.get<T>(key);
+  public getCache(): CacheManager {
+      return this.cacheManager;
   }
 
-  async del(key: string): Promise<void> {
-    await this.cacheManager.del(key);
-  }
 
-  async clear(): Promise<void> {
-    this.cacheManager.clear();
-  }
 }

@@ -9,7 +9,7 @@ type IntervalType = ReturnType<typeof setInterval>;
 
 const INITIAL_CACHE_TYPE_DEFAULT = 'memory'
 
-export class CacheManager implements ICache {
+export class CacheManager {
     
     private cache: ICache;
     name: string;
@@ -17,22 +17,20 @@ export class CacheManager implements ICache {
     constructor(
         protected caches: ICache[], 
         initialCacheType = INITIAL_CACHE_TYPE_DEFAULT, 
-        cleanInterval = 1500) 
-        
-        {
+        cleanInterval = 1500) {
             const _caches = caches || [new InMemoryCache(cleanInterval)]
             const actualCache = initialCacheType || INITIAL_CACHE_TYPE_DEFAULT;
             this.cache = _caches.find(c => c.name === actualCache)
             this.name = this.cache.name
-    }
+        }
     
 
-    async set<T>(key: string, value: T, ttl?: number): Promise<void> {
-        return await this.cache.set(key, value, ttl);
+    async set<T>(key: string, value: T, ttl?: number, collectionName?: string): Promise<void> {
+        return await this.cache.set(key, value, ttl, collectionName);
     }
 
-    async get<T>(key: string): Promise<T | undefined> {
-        return await this.cache.get(key)
+    async get<T>(key: string, collectionName?: string): Promise<T | undefined> {
+        return await this.cache.get(key,collectionName)
     }
 
     async getAll<T>(collectionName?: string): Promise<T[] | undefined> {
