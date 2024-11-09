@@ -97,19 +97,19 @@ export class InMemoryCache implements ICache {
     }
 
     public async getAll<T>(collectionName?: string): Promise<T[] | undefined> {
-        const items: T[] = [];
+        const items: [] = [];
         for (const [key, entry] of this.cache.entries()) {
             
-            if (entry.collectionName === (collectionName || 'default') && !this.isExpired(entry)) {
-                items.push(entry.value as unknown as undefined);
-            } 
+            if (entry.collectionName === (collectionName || BASE_COLLECTION_NAME) && !this.isExpired(entry)) {
+                items.push({ [key]: entry.value, collectionName: entry.collectionName } as never);
+            }
             
             else if (this.isExpired(entry)) {
                 this.cache.delete(key)
             }
 
         }
-        return items.length > 0 ? items : undefined;
+        return items.length > 0 ? items as T[] : undefined;
     }
 
     public async has(key: string, collectionName?: string): Promise<boolean> {

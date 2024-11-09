@@ -71,4 +71,20 @@ describe('InMemoryCache with cleanup interval', () => {
         expect(result).toBeUndefined()
     })
 
+    test('should clear all elements from the collection', async () => {
+        await cache.set("key1", "value1", 1500, "values")
+        await cache.set("key2", "value2", 1500, "values")
+
+        const result = await cache.getAll("values")
+        expect(result).toEqual([
+            {
+                "values:key1": "value1",
+                collectionName: "values"
+            },
+            {
+                "values:key2": "value2",
+                collectionName: "values"
+            },
+        ])
+    })
 });
