@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test:frontend": "pnpm --prefix=apps/frontend run test",
-    "test:backend": "pnpm --prefix=apps/backend run test --watch",
+    "test:backend": "pnpm --prefix=apps/backend run test --watch --detectOpenHandles",
     "build:frontend": "pnpm --prefix=apps/frontend run build",
     "build:backend": "pnpm --prefix=apps/backend run build",
     "build": "run-p build:frontend build:backend",
